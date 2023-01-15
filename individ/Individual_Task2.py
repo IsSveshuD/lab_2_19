@@ -4,24 +4,21 @@
 
 import argparse
 import pathlib
-import colorama
-from colorama import Fore, Style
 
 
 def tree(directory):
-    print(Fore.RED + f'>>> {directory}')
+    print(f'>>> {directory}')
     for path in sorted(directory.rglob('*')):
         depth = len(path.relative_to(directory).parts)
         spacer = ' ' * depth
-        print(Fore.GREEN + Style.BRIGHT + f'{spacer} >> {path.name}')
+        print(f'{spacer} >> {path.name}')
         for new_path in sorted(directory.joinpath(path).glob('*')):
             depth = len(new_path.relative_to(directory.joinpath(path)).parts)
             spacer = '\t' * depth
-            print(Fore.BLUE + f'{spacer} > {new_path.name}')
+            print(f'{spacer} > {new_path.name}')
 
 
 def main(command_line=None):
-    colorama.init()
     current = pathlib.Path.cwd()
     file_parser = argparse.ArgumentParser(add_help=False)
 

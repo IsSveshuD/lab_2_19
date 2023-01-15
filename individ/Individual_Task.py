@@ -64,7 +64,7 @@ def display_contact(contacts):
 
 def select_contact(contacts, period):
     """
-    Выбрать маршрут
+    Выбрать контакт
     """
     result = []
     for contact in contacts:
@@ -113,7 +113,7 @@ def main(command_line=None):
 
     subparsers = parser.add_subparsers(dest="command")
 
-    # Создать субпарсер для добавления работника.
+    # Создать субпарсер для добавления контакта.
     add = subparsers.add_parser(
         "add",
         parents=[file_parser],
@@ -154,7 +154,7 @@ def main(command_line=None):
         parents=[file_parser],
         help="Display all contacts"
     )
-    # Создать субпарсер для выбора работников.
+    # Создать субпарсер для выбора контакта.
     select = subparsers.add_parser(
         "select",
         parents=[file_parser],
@@ -177,7 +177,9 @@ def main(command_line=None):
     else:
         contacts = []
 
-    # Добавить работника
+    """
+    Добавить контакт
+    """
     if args.command == "add":
         contacts = add_contact(
             contacts,
@@ -197,7 +199,7 @@ def main(command_line=None):
         selected = select_contact(contacts, args.familys)
         display_contact(selected)
 
-    # Сохранить данные в файл, если список работников был изменен.
+    # Сохранить данные в файл, если список контактов был изменен.
     if is_dirty:
         save_contacts(args.filename, contacts)
 
